@@ -1,8 +1,12 @@
 import "package:flutter/material.dart";
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:student_api/home_page.dart';
+import 'package:student_api/st_details.dart';
 
 import 'dart:convert';
+
+import 'singup.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -12,37 +16,59 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
-   var mylist = [];
+  var mylist = [];
 
   void _chekdata() async {
-    var url = Uri.https('akashsir.in','myapi/ecom1/api/api-login.php');
-    var response = await http.post(url, body: {'user_email': id.text,'user_password':password.text});
+    var url = Uri.https('akashsir.in', '/myapi/crud/student-login-api.php');
+    var response = await http
+        .post(url, body: {'st_email': id.text, 'st_password': password.text});
     print('response code : ${response.statusCode}');
     print('response body : ${response.body}');
 
-    var data = json.decode(response.body);
-    var flag = data['flag'] as int;
-    print('flag = ${flag}');
-    var u_id = data['userdata']['user_id'];
-    print('user id = ${u_id}');
+    Map<String, dynamic> mymap = json.decode(response.body);
 
+    var value = mymap['flag'];
+    var s_id = mymap['st_id'];
+    int flag = int.parse(value);
+    print('Flag = ${flag}');
+
+    int st_id = int.parse(s_id);
     SharedPreferences srf = await SharedPreferences.getInstance();
-    await srf.setInt('flag' , flag);
-    await srf.setString('user_id', u_id);
+    await srf.setInt('st_id', st_id);
 
+    var st_name = mymap['st_name'];
+    var st_email = mymap['st_email'];
+    var st_mobile = mymap['st_mobileno'];
+    var st_gender = mymap['st_gender'];
+
+    if (flag == 1) {
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => St_detail(
+            id : st_id,
+            name : st_name,
+            email : st_email,
+            mobile : st_mobile,
+            gender : st_gender
+          ),
+        ),
+      );
+    }
+  }
 
   void _forgotPass() async {
-    var url = Uri.https('akashsir.in','/myapi/ecom1/api/api-forgot-password.php');
-    var response = await http.post(url , body: {'user_email' : id.text});
+    var url =
+        Uri.https('akashsir.in', '/myapi/crud/student-forgot-password-api.php');
+    var response = await http.post(url, body: {'st_email': id.text});
     print('response code : ${response.statusCode}');
     print('response body : ${response.body}');
-
   }
-}
+
   TextEditingController id = TextEditingController();
   TextEditingController password = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -116,9 +142,7 @@ class _LoginState extends State<Login> {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {
-
                                       _chekdata();
-
                                     },
                                     icon: Icon(
                                       Icons.arrow_forward,
@@ -134,11 +158,11 @@ class _LoginState extends State<Login> {
                             children: [
                               TextButton(
                                 onPressed: () {
-                                   Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) =>  Registration(),
-                                    )
-                                   ); 
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Registration(),
+                                      ));
                                 },
                                 child: Text(
                                   'Sign Up',
@@ -151,19 +175,18 @@ class _LoginState extends State<Login> {
                                 style: ButtonStyle(),
                               ),
                               TextButton(
-                                  onPressed: () {
-
-                                    _forgotPass();
-                                    
-                                  },
-                                  child: Text(
-                                    'Forgot Password',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
-                                      fontSize: 18,
-                                    ),
-                                  )),
+                                onPressed: () {
+                                  _forgotPass();
+                                },
+                                child: Text(
+                                  'Forgot Password',
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Color(0xff4c505b),
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ),
                             ],
                           )
                         ],

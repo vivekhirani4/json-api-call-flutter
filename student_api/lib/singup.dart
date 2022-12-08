@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
+import 'home_page.dart';
+
 class Registration extends StatefulWidget {
   const Registration({super.key});
 
@@ -164,7 +166,7 @@ class _RegistrationState extends State<Registration> {
                             _signup();
                           });
                         },
-                        child: const Text(
+                        child: const Text( 
                           'Sign Up',
                           textAlign: TextAlign.left,
                           style: TextStyle(
@@ -188,21 +190,33 @@ class _RegistrationState extends State<Registration> {
   }
 
   void _signup() async {
-    var url = Uri.https('akashsir.in', '/myapi/ecom1/api/api-signup.php');
+    var url = Uri.https('akashsir.in', '/myapi/crud/student-add-api.php');
     var response = await http.post(url, body: {
-      'user_name': username.text,
-      'user_email': email.text,
-      'user_password': password.text,
-      'user_gender': gender,
-      'user_mobile': mobile.text,
-      'user_address': address.text
+      'st_name': username.text,
+      'st_gender': gender,
+      'st_email': email.text,
+      'st_mobileno': mobile.text,
+      'st_password': password.text
     });
     print('response code : ${response.statusCode}');
     print('response body : ${response.body}');
 
     Map<String, dynamic> mymap = json.decode(response.body);
-    int flag = mymap['flag'];
+    var value = mymap['flag'];
+    int flag = int.parse(value);
+    print('flag = ${flag}');
 
-    
+    if (flag == 1) 
+    {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+      );
+    }
+    else{
+      print('something went wrong');
+    }
   }
 }
