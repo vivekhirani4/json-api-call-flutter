@@ -32,7 +32,7 @@ class _Update_DetailsState extends State<Update_Details> {
 
     SharedPreferences srf = await SharedPreferences.getInstance();
 
-    int? st_id = await srf.getInt('st_id');
+    var st_id = await srf.getString('st_id');
     print(st_id);
 
     var url = Uri.https('akashsir.in', '/myapi/crud/student-edit-api.php');
@@ -41,6 +41,7 @@ class _Update_DetailsState extends State<Update_Details> {
           'st_id':  st_id,
           'st_name' : name.text,
           'st_gender' : gender.text,
+          'st_email' : email.text,
           'st_mobileno' : mobile.text});
     print('response code : ${response.statusCode}');
     print('response body : ${response.body}');
@@ -57,6 +58,7 @@ class _Update_DetailsState extends State<Update_Details> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Update Details'),
+        backgroundColor: Colors.grey,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -72,6 +74,7 @@ class _Update_DetailsState extends State<Update_Details> {
                       'Update Profile',
                       style: TextStyle(
                         fontSize: 25,
+                        fontWeight: FontWeight.bold
                       ),
                     ),
                     SizedBox(
@@ -139,6 +142,9 @@ class _Update_DetailsState extends State<Update_Details> {
                   });      
                 }, 
                 child: Text('Submit data'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.grey
+                ),
                 )
             ],
           ),

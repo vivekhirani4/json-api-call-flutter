@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:student_api/login.dart';
+import 'package:student_api/st_details.dart';
 
 import 'home_page.dart';
 
@@ -211,7 +213,7 @@ class _RegistrationState extends State<Registration> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => HomePage(),
+          builder: (context) => Login(),
         ),
       );
     }

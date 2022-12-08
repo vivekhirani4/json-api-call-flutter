@@ -29,12 +29,15 @@ class _LoginState extends State<Login> {
 
     var value = mymap['flag'];
     var s_id = mymap['st_id'];
+    var pass = password.text;
+
     int flag = int.parse(value);
     print('Flag = ${flag}');
 
-    int st_id = int.parse(s_id);
     SharedPreferences srf = await SharedPreferences.getInstance();
-    await srf.setInt('st_id', st_id);
+    await srf.setString('st_id', s_id);
+    await srf.setString('pass', pass);
+
 
     var st_name = mymap['st_name'];
     var st_email = mymap['st_email'];
@@ -47,7 +50,7 @@ class _LoginState extends State<Login> {
         context,
         MaterialPageRoute(
           builder: (context) => St_detail(
-            id : st_id,
+            id : s_id,
             name : st_name,
             email : st_email,
             mobile : st_mobile,

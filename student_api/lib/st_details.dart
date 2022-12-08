@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'change_password.dart';
 import 'update_students_details.dart';
 
 class St_detail extends StatefulWidget {
@@ -30,6 +31,7 @@ class _St_detailState extends State<St_detail> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Students details'),
+        backgroundColor: Colors.grey,
         actions: [
           IconButton(
             onPressed: () {},
@@ -122,7 +124,12 @@ class _St_detailState extends State<St_detail> {
                   height: 15,
                 ),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => ChangePassword(),));
+                      });
+                    },
                     child: Text(
                       'Change passeword',
                       style: TextStyle(color: Colors.red),
