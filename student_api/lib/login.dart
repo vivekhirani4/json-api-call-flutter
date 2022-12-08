@@ -37,6 +37,7 @@ class _LoginState extends State<Login> {
     SharedPreferences srf = await SharedPreferences.getInstance();
     await srf.setString('st_id', s_id);
     await srf.setString('pass', pass);
+    await srf.setString('st_email', id.text);
 
 
     var st_name = mymap['st_name'];
@@ -71,6 +72,7 @@ class _LoginState extends State<Login> {
 
   TextEditingController id = TextEditingController();
   TextEditingController password = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {

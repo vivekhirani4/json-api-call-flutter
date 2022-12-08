@@ -53,6 +53,19 @@ class _ChangePasswordState extends State<ChangePassword> {
     }
   }
 
+  void _forgotPass() async {
+
+    SharedPreferences srf = await SharedPreferences.getInstance();
+    var st_email = srf.getString('st_email');
+
+    var url =
+        Uri.https('akashsir.in', '/myapi/crud/student-forgot-password-api.php');
+    var response = await http.post(url, body: {'st_email': st_email});
+    print('response code : ${response.statusCode}');
+    print('response body : ${response.body}');
+    print('Password has sent to ${st_email} account check your mail');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,54 +74,66 @@ class _ChangePasswordState extends State<ChangePassword> {
         title: Text('Change password'),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 35, left: 4),
-              child: const Text(
-                'Change Password.!',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(15),
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 35, left: 4),
+                child: const Text(
+                  'Change Password.!',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            TextField(
-              controller: opass,
-              decoration: const InputDecoration(
-                  fillColor: Colors.grey, hintText: 'Enter current password'),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            TextField(
-              controller: npass,
-              decoration: const InputDecoration(
-                  hintText: 'Enter new password', fillColor: Colors.grey),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            TextField(
-              controller: cpass,
-              decoration: const InputDecoration(
-                  hintText: 'Re-enter new password', fillColor: Colors.grey),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _changePassword();
-                });
-              },
-              child: Text('Update password'),
-              style: ElevatedButton.styleFrom(primary: Colors.grey),
-            )
-          ],
+              SizedBox(
+                height: 20,
+              ),
+              TextField(
+                controller: opass,
+                decoration: const InputDecoration(
+                    fillColor: Colors.grey, hintText: 'Enter current password'),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              TextField(
+                controller: npass,
+                decoration: const InputDecoration(
+                    hintText: 'Enter new password', fillColor: Colors.grey),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              TextField(
+                controller: cpass,
+                decoration: const InputDecoration(
+                    hintText: 'Re-enter new password', fillColor: Colors.grey),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _changePassword();
+                  });
+                },
+                child: Text('Update password'),
+                style: ElevatedButton.styleFrom(primary: Colors.grey),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    _forgotPass();
+                  });
+                },
+                child: Text('forgot password..?'))
+            ],
+          ),
         ),
       ),
     );

@@ -18,8 +18,7 @@ class St_detail extends StatefulWidget {
       required this.name,
       required this.email,
       required this.mobile,
-      required this.gender
-      });
+      required this.gender});
 
   @override
   State<St_detail> createState() => _St_detailState();
@@ -30,19 +29,19 @@ class _St_detailState extends State<St_detail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Students details'),
+        title: const Text('Students details'),
         backgroundColor: Colors.grey,
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.notifications_none),
+            icon: const Icon(Icons.notifications_none),
           ),
         ],
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: EdgeInsets.all(13),
+            padding: const EdgeInsets.all(13),
             child: Column(
               children: [
                 const Icon(
@@ -108,14 +107,18 @@ class _St_detailState extends State<St_detail> {
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
+                      children: const [
+                        Text(
                           'Edit profile',
                           style: TextStyle(color: Colors.black, fontSize: 17),
                         ),
-                        SizedBox(width: 5,),
-                        Icon(Icons.edit,
-                        color: Colors.black,)
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(
+                          Icons.edit,
+                          color: Colors.black,
+                        )
                       ],
                     ),
                   ),
@@ -124,16 +127,20 @@ class _St_detailState extends State<St_detail> {
                   height: 15,
                 ),
                 TextButton(
-                    onPressed: () {
-                      setState(() {
-                        Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => ChangePassword(),));
-                      });
-                    },
-                    child: Text(
-                      'Change passeword',
-                      style: TextStyle(color: Colors.red),
-                    ))
+                  onPressed: () {
+                    setState(() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChangePassword(),
+                          ));
+                    });
+                  },
+                  child: const Text(
+                    'Change passeword',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                )
               ],
             ),
           ),
