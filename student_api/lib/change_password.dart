@@ -37,11 +37,11 @@ class _ChangePasswordState extends State<ChangePassword> {
         print('response code : ${response.statusCode}');
         print('response body : ${response.body}');
 
-        Map<String, dynamic> mymap = json.decode(response.body);
-
-        var value = mymap['flag'];
-        int flag = int.parse(value);
-        print('Flag = ${flag}');
+      var myjson = jsonDecode(response.body);
+      print(myjson['flag']);
+      print(myjson['messagge']);
+        
+        
       }
       else{
         print('The old password was not corrent');

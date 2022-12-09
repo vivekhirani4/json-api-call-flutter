@@ -137,7 +137,7 @@ class _St_detailState extends State<St_detail> {
                     });
                   },
                   child: const Text(
-                    'Change passeword',
+                    'Change password',
                     style: TextStyle(color: Colors.red),
                   ),
                 )
