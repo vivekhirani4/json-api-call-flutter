@@ -147,7 +147,10 @@ class _LoginState extends State<Login> {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {
-                                      _chekdata();
+                                      setState(() {
+                                        _chekdata();  
+                                      });
+                                      
                                     },
                                     icon: Icon(
                                       Icons.arrow_forward,

@@ -20,12 +20,12 @@ class _myclassState extends State<myclass> {
     _getvalue();
   }
 
-  var myjosn;
 
   void _getvalue() async {
     SharedPreferences srf = await SharedPreferences.getInstance();
     var st_id = await srf.getString('st_id');
     print(st_id);
+
 final queryParameters = {
   'st_id': st_id,
 };
@@ -33,14 +33,18 @@ final queryParameters = {
     print(url);
     var response = await http.get(url);
     print('response body : ${response.body}');
-    myjosn = json.decode(response.body);
-    print(myjosn['name']);
+
+
+   var myjosn = json.decode(response.body);
+
+
+    print(myjosn['st_name']);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text(myjosn['name'])),
+      body: Center(child: Text('heloo')),
     );
   }
 }
