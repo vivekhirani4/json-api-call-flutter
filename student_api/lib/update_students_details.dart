@@ -20,16 +20,23 @@ class _Update_DetailsState extends State<Update_Details> {
   TextEditingController mobile = TextEditingController();
 
   var st_id;
-  var jsondata = {};
+  var mylist = [];
+  Future? myfuture;
+  var jsonmap;
+
+  String? sname;
+  String? sgender;
+  String? semail;
+  String? smobile;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getvalue();
+     _getvalue();
   }
 
-  void _getvalue() async {
+  void  _getvalue() async {
       SharedPreferences srf = await SharedPreferences.getInstance();
       var st_id = await srf.getString('st_id');
       print(st_id);
@@ -41,7 +48,15 @@ class _Update_DetailsState extends State<Update_Details> {
       print('response code : ${response.statusCode}');
         print('response body of getvalue : ${response.body}');
 
-      jsondata = json.decode(response.body);
+      var jsondata = json.decode(response.body);
+      // print(jsondata['st_name']);
+
+      sname = jsondata['st_name'];
+      print('name is = ${sname}');
+      sgender = jsondata['st_gender'];
+      semail = jsondata['st_email'];
+      smobile = jsondata['st_mobileno'];
+      
 
   }
 
@@ -105,7 +120,7 @@ class _Update_DetailsState extends State<Update_Details> {
               TextFormField(
                 controller: name,
                 autofocus: false,
-                initialValue: jsondata['st_name'], // <-- SEE HERE
+                initialValue: sname, // <-- SEE HERE
                 decoration: InputDecoration(
                   hintText: 'update name',
                 ),
@@ -116,7 +131,7 @@ class _Update_DetailsState extends State<Update_Details> {
               TextFormField(
                 controller: gender,
                 autofocus: false,
-                initialValue: jsondata['st_gender'], // <-- SEE HERE
+                initialValue: sgender, // <-- SEE HERE
                 decoration: InputDecoration(
                   hintText: 'update gender',
                 ),
@@ -127,9 +142,9 @@ class _Update_DetailsState extends State<Update_Details> {
               TextFormField(
                 controller: email,
                 autofocus: false,
-                initialValue: jsondata['st_email'], // <-- SEE HERE
+                initialValue: semail, 
                 decoration: InputDecoration(
-                  hintText: 'Enter Number',
+                  hintText: 'Upadate gender',
                 ),
               ),
               const SizedBox(
@@ -138,9 +153,9 @@ class _Update_DetailsState extends State<Update_Details> {
               TextFormField(
                 controller: mobile,
                 autofocus: false,
-                initialValue: jsondata['st_mobileno'], // <-- SEE HERE
+                initialValue: smobile, // <-- SEE HERE
                 decoration: InputDecoration(
-                  hintText: 'Enter Number',
+                  hintText: 'Update Number',
                 ),
               ),
               const SizedBox(

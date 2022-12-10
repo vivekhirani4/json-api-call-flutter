@@ -36,8 +36,7 @@ final queryParameters = {
 
 
    var myjosn = json.decode(response.body);
-
-
+  
     print(myjosn['st_name']);
   }
 
